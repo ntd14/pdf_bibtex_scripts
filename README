@@ -1,0 +1,2 @@
+Python 3 script to take a pdf look for doi information, if none found basic gui starts for manual entry of bibtex information.
+pdf file name is then updated to be "paper name year authors.pdf" and the pdf metadata is updated to hold the bibtex info.
