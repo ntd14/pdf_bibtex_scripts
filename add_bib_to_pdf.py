@@ -4,7 +4,7 @@ import os as os
 import requests
 from tkinter import *
 
-file_name_string = "Y1"
+file_name_string = "G1"
 
 os.chdir("/home/nick/kindle_papers/")
 
@@ -116,17 +116,17 @@ def rename_pdf(cite_dict):
 
 def update_pdf_meta(cite_dict):
 	print("updateing pdf metadata")
-	os.system('exiftool -Author=%s G1.pdf'%("'"+'author = '+cite_dict['author'] +"'"))
-	os.system('exiftool -Number=%s G1.pdf'%("'"+'issue = '+cite_dict['number'] +"'"))
-	os.system('exiftool -UserComment=%s G1.pdf'%("'"+'label = '+cite_dict['label'] +"'"))
-	os.system('exiftool -Subject=%s G1.pdf'%("'"+'journal = '+cite_dict['journal'] +"'"))
-	os.system('exiftool -SerialNumber=%s G1.pdf'%("'"+'pages = '+cite_dict['pages'] +"'"))
-	os.system('exiftool -DOI=%s G1.pdf'%("'"+'doi = '+cite_dict['doi'] +"'"))
-	os.system('exiftool -Publisher=%s G1.pdf'%("'"+'publisher = '+cite_dict['publisher'] +"'"))
-	os.system('exiftool -Volume=%s G1.pdf'%("'"+'volume = '+cite_dict['volume'] +"'"))
-	os.system('exiftool -Title=%s G1.pdf'%("'"+'title = '+cite_dict['title'] +"'"))
-	os.system('exiftool -Date=%s G1.pdf'%("'"+'year = '+cite_dict['year'] +"'"))
-	os.system('exiftool -Notes=%s G1.pdf'%("'"+'organisation = '+cite_dict['organisation'] +"'"))
+	os.system('exiftool -Author=%s %s.pdf'%("'"+'author = '+cite_dict['author'] +"'",file_name_string))
+	os.system('exiftool -Number=%s %s.pdf'%("'"+'issue = '+cite_dict['number'] +"'",file_name_string))
+	os.system('exiftool -UserComment=%s %s.pdf'%("'"+'label = '+cite_dict['label'] +"'",file_name_string))
+	os.system('exiftool -Subject=%s %s.pdf'%("'"+'journal = '+cite_dict['journal'] +"'",file_name_string))
+	os.system('exiftool -SerialNumber=%s %s.pdf'%("'"+'pages = '+cite_dict['pages'] +"'",file_name_string))
+	os.system('exiftool -DOI=%s %s.pdf'%("'"+'doi = '+cite_dict['doi'] +"'",file_name_string))
+	os.system('exiftool -Publisher=%s %s.pdf'%("'"+'publisher = '+cite_dict['publisher'] +"'",file_name_string))
+	os.system('exiftool -Volume=%s %s.pdf'%("'"+'volume = '+cite_dict['volume'] +"'",file_name_string))
+	os.system('exiftool -Title=%s %s.pdf'%("'"+'title = '+cite_dict['title'] +"'",file_name_string))
+	os.system('exiftool -Date=%s %s.pdf'%("'"+'year = '+cite_dict['year'] +"'",file_name_string))
+	os.system('exiftool -Notes=%s %s.pdf'%("'"+'organisation = '+cite_dict['organisation'] +"'",file_name_string))
 
 def add_to_bib(cite_dict):
 	#adds cite_dict info to .bib file
