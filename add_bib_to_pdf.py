@@ -4,7 +4,7 @@ import os as os
 import requests
 from tkinter import *
 
-file_name_string = "G1"
+file_name_string = "Y1"
 
 os.chdir("/home/nick/kindle_papers/")
 
@@ -15,12 +15,21 @@ with open (file_name_string+".txt","r") as tfile:
 def find_doi():
 	doi = "NULL"
 	for item in txt_file.split("\n"):
-		if 'doi' in item:
-			print(item)
-			doi = item.split(' ')[1]
-		elif 'DOI' in item:
-			print(item)
-			doi = item.split(' ')[1]
+		if 'doi ' in item:
+			item = item.split(' ')
+			ind = item.index('doi')
+			doi = item[ind+1]
+			print(doi)
+		elif 'DOI ' in item:
+			item = item.split(' ')
+			ind = item.index('DOI')
+			doi = item[ind+1]
+			print(doi)
+		elif 'doi:' in item:
+			item = item.split(':')
+			ind = item.index('doi')
+			doi = item[ind+1]
+			print(doi)
 	return(doi)
 
 def get_ref(doi):
@@ -107,7 +116,7 @@ def create_dict_from_gui(cite_dict):
 	return(cite_dict)
 
 def rename_pdf(cite_dict):
-	pdf_name = cite_dict['title'][1:-2] + ' ' + cite_dict['year'][:-1] + ' ' + cite_dict['author'][1:-2]
+	pdf_name = cite_dict['title'][1:-1] + ' ' + cite_dict['year'][:-1] + ' ' + cite_dict['author'][1:-1]
 	pdf_name = pdf_name.replace(' ', '\ ')
 	if len(pdf_name) > 252:
 		pdf_name = pdf_name[:(252-len(pdf_name))]
@@ -158,3 +167,9 @@ pdf_name = rename_pdf(cite_dict)
 update_pdf_meta(cite_dict)
 move_pdf(pdf_name)
 ##### dont forget to delete the .txt file #####
+print("k2pdfopt %s"%pdf_name)
+os.system("k2pdfopt %s -ui- -x"%pdf_name)
+print("k2pdfopt finished")
+os.system("mv %s ./og/"%pdf_name)
+os.system("rm %s*"%file_name_string)
+print("finished")
