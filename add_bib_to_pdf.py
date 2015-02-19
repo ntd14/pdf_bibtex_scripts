@@ -4,9 +4,18 @@ import os as os
 import requests
 from tkinter import *
 
+#name of temp pdf file without extention note this file is deleted
 file_name_string = "Y1"
-
+#location of directory where file is
 os.chdir("/home/nick/kindle_papers/")
+
+#convert to kindle resolution 'y' of 'n'
+kindle_convert = 'y'
+#location of directory where unmoded pdf with new name and metadata will be stored if kindle conversion is used
+sfolder = "/home/nick/kindle_papers/og/"
+#note that kindle resolution pdfs are left in "/home/nick/kindle_papers/"
+
+
 
 os.system("pdftotext %s.pdf"%file_name_string)
 with open (file_name_string+".txt","r") as tfile:
@@ -16,20 +25,33 @@ def find_doi():
 	doi = "NULL"
 	for item in txt_file.split("\n"):
 		if 'doi ' in item:
+			print(item)
 			item = item.split(' ')
 			ind = item.index('doi')
 			doi = item[ind+1]
 			print(doi)
+			break
 		elif 'DOI ' in item:
+			print(item)
 			item = item.split(' ')
 			ind = item.index('DOI')
 			doi = item[ind+1]
 			print(doi)
+			break
 		elif 'doi:' in item:
 			item = item.split(':')
+			print(item)
 			ind = item.index('doi')
 			doi = item[ind+1]
 			print(doi)
+			break
+		elif 'DOI:' in item:
+			print(item)
+			item = item.split(':')
+			ind = item.index('DOI')
+			doi = item[ind+1]
+			print(doi)
+			break
 	return(doi)
 
 def get_ref(doi):
@@ -166,10 +188,11 @@ print(cite_dict)
 pdf_name = rename_pdf(cite_dict)
 update_pdf_meta(cite_dict)
 move_pdf(pdf_name)
-##### dont forget to delete the .txt file #####
-print("k2pdfopt %s"%pdf_name)
-os.system("k2pdfopt %s -ui- -x"%pdf_name)
-print("k2pdfopt finished")
-os.system("mv %s ./og/"%pdf_name)
-os.system("rm %s*"%file_name_string)
+
+if kindle_convert == 'y':
+	print("k2pdfopt %s"%pdf_name)
+	os.system("k2pdfopt %s -ui- -x"%pdf_name)
+	print("k2pdfopt finished")
+	os.system("mv %s %s"%(pdf_name, sfolder))
+	os.system("rm %s*"%file_name_string)
 print("finished")
