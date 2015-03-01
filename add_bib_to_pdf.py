@@ -14,7 +14,7 @@ kindle_convert = 'y'
 #location of directory where unmoded pdf with new name and metadata will be stored if kindle conversion is used
 sfolder = "/home/nick/kindle_papers/og/"
 #note that kindle resolution pdfs are left in "/home/nick/kindle_papers/"
-
+### requirments: pdftotext, exiftool, and if using kindle res formating k2pdfopt
 
 
 os.system("pdftotext %s.pdf"%file_name_string)
@@ -35,6 +35,20 @@ def find_doi():
 			print(item)
 			item = item.split(' ')
 			ind = item.index('DOI')
+			doi = item[ind+1]
+			print(doi)
+			break
+		elif 'doi: ' in item:
+			print(item)
+			item = item.split(' ')
+			ind = item.index('doi:')
+			doi = item[ind+1]
+			print(doi)
+			break
+		elif 'DOI: ' in item:
+			print(item)
+			item = item.split(' ')
+			ind = item.index('DOI:')
 			doi = item[ind+1]
 			print(doi)
 			break
@@ -91,6 +105,10 @@ def fetch(entries, cite_dict):
 		field = entry[0]
 		text  = entry[1].get()
 		text = text.replace('\n', ' ')
+		text = text.replace('\{', '')
+		text = text.replace('\}', '')
+		text = text.replace(':', '')
+		text = text.replace('\^', '')
 		cite_dict[field] = text
 
 def makeform(root, fields):
@@ -179,10 +197,8 @@ if doi != "NULL":
 else:
 	cite_dict = create_dict_from_gui(cite_dict)
 
-#kill all tinker windows here
+# Need to create a function to go through the dict and remove : and other non compliant chars
 
-### create a class called cite_dictionary then use init_cite_dict as __init__ function,
-### then use the def's as operations on the instance cite_dict of teh class cite_dictionary
 
 print(cite_dict)
 pdf_name = rename_pdf(cite_dict)
