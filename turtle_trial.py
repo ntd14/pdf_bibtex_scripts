@@ -1,14 +1,17 @@
-import turtle
-import random
+
+num_turtles = 5 #Max 10
+mfa_sd = 40
 
 mfa = 0
-mfa_sd = 80
-n_steps = 150
+n_steps = 100
 t_size = 10
 move_dist = 7
-sep = 50
+sep = 20
 speed = 100
-num_turtles = 10 #Max 10
+
+
+import turtle
+import random
 
 turtle_names = ["Tess", "Barry","Bruce","Sarah", "Alex", "Kris", "John", "Matt","Bec", "Alicea"]
 turtle_names = turtle_names[0:num_turtles]
