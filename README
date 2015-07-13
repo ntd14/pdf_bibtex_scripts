@@ -1,2 +1,10 @@
-Python 3 script to take a pdf look for doi information, if none found basic gui starts for manual entry of bibtex information.
+Python 3 scripts for managing interaction between pdf papers, authorea and tex files.
+
+add_bib_to_pdf.py Takes a pdf looks for doi information, if none found basic gui starts for manual entry of bibtex information.
 pdf file name is then updated to be "paper name year authors.pdf" and the pdf metadata is updated to hold the bibtex info.
+
+auth_2_tex takes a downloaded authorea zip file and convertes the indivdual files into a single tex file for editing.
+
+tex_2_auth takes the large tex file breaks it up and looks for changes, then uploads the changes to the github repo.
+
+these scripts are just admin scripts for my systems with no generalisation etc. and probably dont work most of the time. 
